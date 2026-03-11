@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Threads 全球使用普及率調查研究報告</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --surface2: #1e1e1e;
+            --border: #2a2a2a;
+            --text: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --accent: #4f8ff7;
+            --accent2: #7c5cfc;
+            --green: #34d399;
+            --red: #f87171;
+            --yellow: #fbbf24;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero h1 {
+            font-size: 2.4em;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #4f8ff7, #7c5cfc, #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero .meta {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        h2 {
+            font-size: 1.6em;
+            margin: 56px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        h3 {
+            font-size: 1.2em;
+            margin: 32px 0 16px;
+            color: #c4b5fd;
+        }
+        h4 {
+            font-size: 1.05em;
+            margin: 24px 0 12px;
+            color: var(--green);
+        }
+        p { margin-bottom: 16px; }
+        strong { color: #f0f0f0; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Summary cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .card .number {
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card .label {
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+
+        /* Tables */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 16px 0 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92em;
+        }
+        th {
+            background: var(--surface2);
+            color: var(--accent);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(79,143,247,0.05); }
+
+        /* Chart */
+        .chart-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+        .chart-container pre {
+            color: var(--green);
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        /* Blockquote */
+        blockquote {
+            border-left: 3px solid var(--accent2);
+            padding: 12px 20px;
+            margin: 16px 0;
+            background: var(--surface);
+            border-radius: 0 8px 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.92em;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 12px 0 16px 24px;
+        }
+        li { margin-bottom: 6px; }
+
+        /* Trend indicators */
+        .trend-up { color: var(--green); }
+        .trend-down { color: var(--red); }
+        .trend-flat { color: var(--yellow); }
+
+        /* Section divider */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-top: 40px;
+        }
+
+        /* Sources */
+        .sources { font-size: 0.88em; }
+        .sources h4 { color: var(--accent); }
+        .sources ol { padding-left: 20px; }
+        .sources li { margin-bottom: 4px; color: var(--text-secondary); }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6em; }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            td, th { padding: 8px 10px; font-size: 0.85em; }
+        }
+
+        /* Comparison badges */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-green { background: rgba(52,211,153,0.15); color: var(--green); }
+        .badge-red { background: rgba(248,113,113,0.15); color: var(--red); }
+        .badge-yellow { background: rgba(251,191,36,0.15); color: var(--yellow); }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 32px;
+            margin: 32px 0;
+        }
+        .toc h3 { margin-top: 0; color: var(--accent); }
+        .toc ol { margin-bottom: 0; }
+        .toc li { margin-bottom: 4px; }
+        .toc a { color: var(--text); }
+        .toc a:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>Meta Threads 全球使用普及率調查研究報告</h1>
+    <p class="meta">報告日期：2026 年 3 月 11 日 ｜ 資料更新至：2026 年第一季</p>
+</div>
+
+<div class="container">
+
+    <!-- Key Metrics Cards -->
+    <div class="summary-grid">
+        <div class="card">
+            <div class="number">4.5 億</div>
+            <div class="label">月活躍用戶 (MAU)</div>
+        </div>
+        <div class="card">
+            <div class="number">1.5 億</div>
+            <div class="label">日活躍用戶 (DAU)</div>
+        </div>
+        <div class="card">
+            <div class="number">100+</div>
+            <div class="label">覆蓋國家數</div>
+        </div>
+        <div class="card">
+            <div class="number">31</div>
+            <div class="label">支援語言</div>
+        </div>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+        <h3>目次</h3>
+        <ol>
+            <li><a href="#s1">摘要</a></li>
+            <li><a href="#s2">Threads 發展歷程</a></li>
+            <li><a href="#s3">全球用戶數據總覽</a></li>
+            <li><a href="#s4">各國／地區使用排名</a></li>
+            <li><a href="#s5">用戶人口統計</a></li>
+            <li><a href="#s6">使用行為分析</a></li>
+            <li><a href="#s7">競品比較</a></li>
+            <li><a href="#s8">趨勢與展望</a></li>
+            <li><a href="#s9">最受歡迎帳號</a></li>
+            <li><a href="#s10">資料來源</a></li>
+        </ol>
+    </div>
+
+    <!-- Section 1 -->
+    <h2 id="s1">1. 摘要</h2>
+    <p>Meta Threads 自 2023 年 7 月 5 日推出以來，已發展為全球最具影響力的文字社群平台之一。截至 2026 年初，Threads MAU 達 <strong>4.5 億</strong>，官方公佈 DAU 達 <strong>1.5 億</strong>（2025 年 Q3 財報），行動端 DAU 達 <strong>1.415 億</strong>（SimilarWeb 2026 年 1 月數據），已正式超越 X（前 Twitter）的行動端日活量。</p>
+    <p>Threads 的成長主要受益於 Instagram 逾 20 億用戶的龐大基礎、持續的功能更新，以及 X 平台因品牌安全與內容審核爭議導致的用戶與廣告主流失。印度（5,420 萬）、巴西（3,640 萬）、美國（3,390 萬 MAU）為前三大市場。用戶以 18-34 歲年輕族群為主（佔 49%），男性用戶占比約 58-68%。2026 年 1 月 Threads 廣告正式面向全球所有用戶開放，分析師預估 2026 年廣告收入可達 20-113 億美元。</p>
+
+    <hr>
+
+    <!-- Section 2 -->
+    <h2 id="s2">2. Threads 發展歷程</h2>
+    <h3>2.1 完整發展時間軸</h3>
+
+    <h4>2023 年</h4>
+    <div class="table-wrap"><table>
+        <tr><th>時間</th><th>事件</th></tr>
+        <tr><td>7 月 5 日</td><td>Threads 正式上線，與 Instagram 帳號綁定，首日即突破 3,000 萬用戶</td></tr>
+        <tr><td>7 月 6 日</td><td>上線 1 小時達 100 萬；2 小時達 200 萬；4 小時達 500 萬；7 小時達 1,000 萬</td></tr>
+        <tr><td>7 月 7 日</td><td>上線 2 天達 7,000 萬用戶</td></tr>
+        <tr><td>7 月 10 日</td><td>上線 5 天達 <strong>1 億用戶</strong>（史上最快達到此里程碑的應用）</td></tr>
+        <tr><td>8 月</td><td>推出網頁版 threads.net</td></tr>
+        <tr><td>9 月</td><td>關鍵字搜尋功能在部分地區上線</td></tr>
+        <tr><td>12 月 14 日</td><td><strong>正式登陸歐盟</strong>（因 DMA 法規延遲 5 個月），開放約 4.48 億歐盟居民使用</td></tr>
+    </table></div>
+
+    <h4>2024 年</h4>
+    <div class="table-wrap"><table>
+        <tr><th>時間</th><th>事件</th></tr>
+        <tr><td>2 月</td><td>推出投票功能（最多四個選項）</td></tr>
+        <tr><td>3 月</td><td>推出「熱門話題」（Trending Now）；進入 Fediverse（透過 ActivityPub 與 Mastodon 互通）</td></tr>
+        <tr><td>5 月</td><td>推出類似 TweetDeck 的多欄式介面</td></tr>
+        <tr><td>6 月 18 日</td><td><strong>Threads API 正式發佈</strong>，支援第三方應用</td></tr>
+        <tr><td>9 月 20 日</td><td>MAU 達 <strong>2 億</strong>（上線後第 442 天）</td></tr>
+        <tr><td>10 月</td><td>API 擴展：新增 Webhooks 與媒體功能</td></tr>
+        <tr><td>11 月</td><td>演算法調整，強化關注帳號內容展示</td></tr>
+        <tr><td>12 月</td><td>API 新增搜尋與分析功能；MAU 達 <strong>2.75 億</strong></td></tr>
+    </table></div>
+
+    <h4>2025 年</h4>
+    <div class="table-wrap"><table>
+        <tr><th>時間</th><th>事件</th></tr>
+        <tr><td>1 月</td><td>自訂動態上線；個人檔案新增媒體分頁；MAU 達 3.2 億</td></tr>
+        <tr><td>1 月 24 日</td><td><strong>開始在美國和日本測試廣告</strong></td></tr>
+        <tr><td>3 月</td><td>話題標註（Topic Tags）上線，累計 5,000 萬+標籤；貼文編輯功能（15 分鐘窗口）</td></tr>
+        <tr><td>4 月 23 日</td><td><strong>廣告向所有符合資格的廣告主全球開放</strong></td></tr>
+        <tr><td>4 月 30 日</td><td>Zuckerberg 宣佈 MAU 達 <strong>3.5 億</strong></td></tr>
+        <tr><td>6 月</td><td>推出 Fediverse 動態（歐盟除外）</td></tr>
+        <tr><td>8 月 12 日</td><td>Adam Mosseri 宣佈 MAU 達 <strong>4 億</strong></td></tr>
+        <tr><td>9 月</td><td>Threads 行動端 DAU <strong>首次超越 X</strong></td></tr>
+        <tr><td>10 月 16 日</td><td>DoubleVerify 第三方品牌安全驗證上線</td></tr>
+        <tr><td>10 月 29 日</td><td>Zuckerberg Q3 財報宣佈 DAU 達 <strong>1.5 億</strong></td></tr>
+    </table></div>
+
+    <h4>2026 年</h4>
+    <div class="table-wrap"><table>
+        <tr><th>時間</th><th>事件</th></tr>
+        <tr><td>1 月 21-26 日</td><td><strong>廣告面向全球所有用戶開放</strong></td></tr>
+        <tr><td>1 月</td><td>MAU 達 <strong>~4.5 億</strong>；行動端 DAU 1.415 億</td></tr>
+        <tr><td>1 月 28 日</td><td>Meta Q4 2025 財報：全年收入 2,010 億美元</td></tr>
+        <tr><td>2 月</td><td>Threads 貼文可直接分享至 Instagram 限時動態</td></tr>
+    </table></div>
+
+    <h3>2.2 首月下載量詳細數據</h3>
+    <div class="table-wrap"><table>
+        <tr><th>月份</th><th>全球下載量（百萬）</th></tr>
+        <tr><td>2023 年 7 月</td><td><strong>73.14</strong></td></tr>
+        <tr><td>2023 年 8 月</td><td>25.06</td></tr>
+        <tr><td>2023 年 9 月</td><td>20.87</td></tr>
+        <tr><td>2023 年 10 月</td><td>13.18</td></tr>
+        <tr><td>2023 年 11 月</td><td>12.58</td></tr>
+        <tr><td>2023 年 12 月</td><td><strong>35.78</strong>（歐盟上線帶動）</td></tr>
+        <tr><td>2024 年 1 月</td><td>30.74</td></tr>
+        <tr><td>2024 年 2 月</td><td>26.11</td></tr>
+        <tr><td>2024 年 3 月</td><td>27.98</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 3 -->
+    <h2 id="s3">3. 全球用戶數據總覽</h2>
+    <h3>3.1 MAU / DAU 現況</h3>
+    <div class="table-wrap"><table>
+        <tr><th>指標</th><th>數值</th><th>來源 / 更新時間</th></tr>
+        <tr><td>全球 MAU</td><td><strong>~4.5 億</strong></td><td>第三方估算，2026 Q1</td></tr>
+        <tr><td>全球 DAU（官方）</td><td><strong>1.5 億</strong></td><td>Zuckerberg Q3 2025 財報</td></tr>
+        <tr><td>全球 DAU（行動端）</td><td><strong>1.415 億</strong></td><td>SimilarWeb，2026/01/07</td></tr>
+        <tr><td>美國 MAU</td><td><strong>3,390 萬</strong></td><td>2026 Q1</td></tr>
+        <tr><td>美國 DAU</td><td><strong>1,660 萬</strong></td><td>2026/01（年增 41.8%）</td></tr>
+        <tr><td>DAU/MAU 比率</td><td><strong>29-35%</strong></td><td>2025</td></tr>
+        <tr><td>覆蓋國家</td><td><strong>100+</strong></td><td>2026</td></tr>
+        <tr><td>支援語言</td><td><strong>31 種</strong></td><td>2026</td></tr>
+    </table></div>
+
+    <h3>3.2 MAU 季度成長趨勢</h3>
+    <div class="table-wrap"><table>
+        <tr><th>時期</th><th>MAU（百萬）</th><th>較前期變化</th></tr>
+        <tr><td>2023 Q3（首發）</td><td>100</td><td>-</td></tr>
+        <tr><td>2023 Q4</td><td>130</td><td>+30%</td></tr>
+        <tr><td>2024 Q1</td><td>150</td><td>+15%</td></tr>
+        <tr><td>2024 Q2</td><td>150</td><td>持平</td></tr>
+        <tr><td>2024 Q3</td><td>200</td><td>+33%</td></tr>
+        <tr><td>2024 Q4</td><td>275</td><td>+38%</td></tr>
+        <tr><td>2025 Q1</td><td>305</td><td>+11%</td></tr>
+        <tr><td>2025 Q2</td><td>350</td><td>+15%</td></tr>
+        <tr><td>2025 Q3</td><td>400</td><td>+14%</td></tr>
+        <tr><td>2026 Q1（估計）</td><td>~450</td><td>+13%</td></tr>
+    </table></div>
+
+    <div class="chart-container">
+        <pre>
+MAU 成長曲線（百萬用戶）
+
+450 |                                               *
+400 |                                          *---/
+350 |                                     *---/
+305 |                                *---/
+275 |                           *---/
+200 |                      *---/
+150 |           *---------/
+130 |      *---/
+100 | *---/
+    +----+----+----+----+----+----+----+----+----+----+-->
+    7/23 10/23 1/24 4/24 7/24 10/24 1/25 4/25 8/25 1/26
+        </pre>
+    </div>
+
+    <h3>3.3 DAU 成長里程碑</h3>
+    <div class="table-wrap"><table>
+        <tr><th>日期</th><th>DAU</th><th>來源</th></tr>
+        <tr><td>2024 年 12 月</td><td>1 億</td><td>Meta 官方</td></tr>
+        <tr><td>2025 年 6 月</td><td>1.151 億（行動端）</td><td>SimilarWeb（年增 +127.8%）</td></tr>
+        <tr><td>2025 年 10 月 29 日</td><td><strong>1.5 億</strong></td><td>Zuckerberg Q3 財報（官方）</td></tr>
+        <tr><td>2026 年 1 月 7 日</td><td><strong>1.415 億</strong>（行動端）</td><td>SimilarWeb / TechCrunch</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 4 -->
+    <h2 id="s4">4. 各國／地區使用排名</h2>
+    <h3>4.1 Top 10 國家用戶數與下載量佔比</h3>
+    <div class="table-wrap"><table>
+        <tr><th>排名</th><th>國家</th><th>用戶數（百萬）</th><th>下載量佔比</th><th>主要特點</th></tr>
+        <tr><td>1</td><td>印度</td><td><strong>54.2</strong></td><td>32%</td><td>最大單一市場，Android 主導</td></tr>
+        <tr><td>2</td><td>巴西</td><td><strong>36.4</strong></td><td>22%</td><td>拉美最大市場，X 禁令加速成長</td></tr>
+        <tr><td>3</td><td>美國</td><td><strong>33.9</strong> (MAU)</td><td>16%</td><td>廣告核心市場</td></tr>
+        <tr><td>4</td><td>墨西哥</td><td><strong>12.3</strong></td><td>8%</td><td>拉美第二大市場</td></tr>
+        <tr><td>5</td><td>日本</td><td><strong>7.3</strong></td><td>5%</td><td>亞太重要市場，廣告測試市場</td></tr>
+        <tr><td>6</td><td>英國</td><td><strong>6.5</strong></td><td>-</td><td>歐洲最大英語市場</td></tr>
+        <tr><td>7</td><td>台灣</td><td><strong>2.9</strong></td><td>-</td><td>網頁流量佔比高（~18%）</td></tr>
+        <tr><td>8</td><td>加拿大</td><td><strong>2.6</strong></td><td>-</td><td>北美次要市場</td></tr>
+        <tr><td>9</td><td>澳洲</td><td><strong>1.4</strong></td><td>-</td><td>大洋洲主要市場</td></tr>
+        <tr><td>10</td><td>越南</td><td><strong>0.9</strong></td><td>-</td><td>東南亞成長中市場</td></tr>
+    </table></div>
+    <blockquote>前五大國家佔全球下載量的 83%。</blockquote>
+
+    <h3>4.2 網頁流量來源國（SimilarWeb）</h3>
+    <div class="table-wrap"><table>
+        <tr><th>國家</th><th>threads.net 流量佔比</th></tr>
+        <tr><td>台灣</td><td>~18%</td></tr>
+        <tr><td>美國</td><td>17.3%</td></tr>
+        <tr><td>越南</td><td>9.1%</td></tr>
+        <tr><td>巴西</td><td>8.0%</td></tr>
+        <tr><td>日本</td><td>5.6%</td></tr>
+    </table></div>
+
+    <h3>4.3 主要市場滲透率（估算）</h3>
+    <div class="table-wrap"><table>
+        <tr><th>國家</th><th>Threads 用戶（百萬）</th><th>網路人口（百萬）</th><th>滲透率</th></tr>
+        <tr><td>巴西</td><td>36.4</td><td>181</td><td><strong>~20%</strong></td></tr>
+        <tr><td>台灣</td><td>2.9</td><td>22</td><td><strong>~13%</strong></td></tr>
+        <tr><td>墨西哥</td><td>12.3</td><td>100</td><td><strong>~12%</strong></td></tr>
+        <tr><td>美國</td><td>33.9</td><td>312</td><td><strong>~11%</strong></td></tr>
+        <tr><td>英國</td><td>6.5</td><td>63</td><td><strong>~10%</strong></td></tr>
+        <tr><td>加拿大</td><td>2.6</td><td>37</td><td><strong>~7%</strong></td></tr>
+        <tr><td>日本</td><td>7.3</td><td>117</td><td><strong>~6%</strong></td></tr>
+        <tr><td>印度</td><td>54.2</td><td>900</td><td><strong>~6%</strong></td></tr>
+        <tr><td>澳洲</td><td>1.4</td><td>24</td><td><strong>~6%</strong></td></tr>
+    </table></div>
+
+    <h3>4.4 區域分析</h3>
+    <div class="table-wrap"><table>
+        <tr><th>區域</th><th>用戶佔比</th><th>關鍵觀察</th></tr>
+        <tr><td>亞太地區</td><td>~37%</td><td>印度為最大單一市場（5,420 萬）；日本、台灣、越南為次要市場</td></tr>
+        <tr><td>拉丁美洲</td><td>~30%</td><td>巴西（3,640 萬）、墨西哥（1,230 萬）主導；X 禁令帶動成長</td></tr>
+        <tr><td>北美</td><td>~17%</td><td>美國 3,390 萬 MAU（佔全球約 9%），為廣告變現核心</td></tr>
+        <tr><td>歐洲</td><td>~12%</td><td>2023/12 才開放；英國 650 萬領先；DMA 法規限制成長</td></tr>
+        <tr><td>中東／非洲</td><td>~4%</td><td>尚處早期發展階段</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 5 -->
+    <h2 id="s5">5. 用戶人口統計</h2>
+    <h3>5.1 年齡分佈</h3>
+    <div class="table-wrap"><table>
+        <tr><th>年齡層</th><th>用戶佔比</th></tr>
+        <tr><td>18-24 歲</td><td><strong>19.3-20.4%</strong></td></tr>
+        <tr><td>25-34 歲</td><td><strong>28.8-36.4%</strong>（最大族群）</td></tr>
+        <tr><td>35-44 歲</td><td><strong>~19.2%</strong></td></tr>
+        <tr><td>45-54 歲</td><td><strong>~13.9%</strong></td></tr>
+        <tr><td>55-64 歲</td><td><strong>~10.1%</strong></td></tr>
+        <tr><td>65 歲以上</td><td><strong>~6%</strong></td></tr>
+    </table></div>
+    <ul>
+        <li><strong>Z 世代（18-27 歲）佔總用戶超過 40%</strong></li>
+        <li>核心用戶群為 <strong>18-34 歲</strong>，合計佔比約 <strong>49-57%</strong></li>
+        <li>25-34 歲為最大單一年齡層（千禧世代為主力）</li>
+    </ul>
+
+    <h3>5.2 性別分佈</h3>
+    <div class="table-wrap"><table>
+        <tr><th>性別</th><th>網頁流量數據</th><th>應用數據</th></tr>
+        <tr><td>男性</td><td><strong>57.85%</strong></td><td><strong>~68%</strong></td></tr>
+        <tr><td>女性</td><td><strong>42.15%</strong></td><td><strong>~32%</strong></td></tr>
+    </table></div>
+    <blockquote>不同衡量方法產生不同結果。無論哪種方式，Threads 都有明顯的男性用戶偏向，與 Instagram 接近均衡的性別比（50.6:49.4）形成對比。</blockquote>
+
+    <h3>5.3 跨平台重疊</h3>
+    <div class="table-wrap"><table>
+        <tr><th>同時使用的平台</th><th>Threads 用戶重疊比例</th></tr>
+        <tr><td>Instagram</td><td><strong>96%</strong></td></tr>
+        <tr><td>WhatsApp</td><td><strong>80%</strong></td></tr>
+        <tr><td>Facebook</td><td><strong>70%</strong></td></tr>
+        <tr><td>X (Twitter)</td><td><strong>56%</strong></td></tr>
+    </table></div>
+
+    <h3>5.4 與 X 及 Instagram 的人口統計比較</h3>
+    <div class="table-wrap"><table>
+        <tr><th>指標</th><th>Threads</th><th>X (Twitter)</th><th>Instagram</th></tr>
+        <tr><td>最大年齡層</td><td>25-34（29-36%）</td><td>千禧世代（35%）</td><td>18-34（~61%）</td></tr>
+        <tr><td>性別（男/女）</td><td>58-68% / 32-42%</td><td>61% / 39%</td><td>~51% / ~49%</td></tr>
+        <tr><td>每日使用時長</td><td>8-10 分鐘</td><td>~34 分鐘</td><td>~33 分鐘</td></tr>
+        <tr><td>內容調性</td><td>輕鬆、對話式</td><td>新聞驅動、即時</td><td>視覺優先、生活風格</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 6 -->
+    <h2 id="s6">6. 使用行為分析</h2>
+    <h3>6.1 使用時長</h3>
+    <div class="table-wrap"><table>
+        <tr><th>指標</th><th>數值</th></tr>
+        <tr><td>全球平均每次造訪</td><td><strong>5 分 24 秒</strong></td></tr>
+        <tr><td>美國用戶每日平均</td><td><strong>8-10 分鐘</strong></td></tr>
+        <tr><td>全球每日活躍用戶平均</td><td><strong>9+ 分鐘</strong>（2025）</td></tr>
+        <tr><td>首發時每日使用時長</td><td>21 分鐘（隨後急降）</td></tr>
+        <tr><td>2023 年底每日使用時長</td><td>4 分鐘</td></tr>
+        <tr><td>每月平均開啟次數</td><td><strong>~20 次</strong></td></tr>
+        <tr><td>每日平均會話次數</td><td><strong>3-4 次</strong></td></tr>
+    </table></div>
+    <p>使用時長從 2023 年底的 4 分鐘回升至 2025 年的 9+ 分鐘，成長超過 <strong>125%</strong>。會話時長年增 <strong>25%</strong>（2024&rarr;2025）。尖峰使用時段為<strong>工作日早晨</strong>。</p>
+
+    <h3>6.2 互動指標</h3>
+    <div class="table-wrap"><table>
+        <tr><th>指標</th><th>Threads</th><th>X (Twitter)</th><th>差距</th></tr>
+        <tr><td>中位互動率</td><td><strong>6.25%</strong></td><td>3.6%</td><td class="trend-up">Threads 高 73.6%</td></tr>
+        <tr><td>品牌互動率</td><td><strong>4.51%</strong></td><td>~2-3%</td><td class="trend-up">Threads 高 ~50-125%</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 7 -->
+    <h2 id="s7">7. 競品比較</h2>
+    <h3>7.1 用戶數對比</h3>
+    <div class="table-wrap"><table>
+        <tr><th>平台</th><th>MAU（百萬）</th><th>DAU（百萬）</th><th>推出時間</th><th>所有者</th></tr>
+        <tr><td><strong>X (Twitter)</strong></td><td>~550-570</td><td>~245-251</td><td>2006</td><td>X Corp / Elon Musk</td></tr>
+        <tr><td><strong>Threads</strong></td><td>~450</td><td>~150 / 141.5（行動）</td><td>2023.07</td><td>Meta</td></tr>
+        <tr><td><strong>Bluesky</strong></td><td>~40.2（註冊）</td><td>~3.5</td><td>2023.02</td><td>Bluesky PBC</td></tr>
+        <tr><td><strong>Mastodon</strong></td><td>~0.7-1.5（活躍）</td><td>~0.1-0.3</td><td>2016</td><td>開源 / 非營利</td></tr>
+    </table></div>
+
+    <h3>7.2 成長率與趨勢</h3>
+    <div class="table-wrap"><table>
+        <tr><th>平台</th><th>年成長率（2024&rarr;2025）</th><th>趨勢</th></tr>
+        <tr><td><strong>Threads</strong></td><td>+127.8%（DAU）/ +100%（MAU）</td><td><span class="badge badge-green">快速上升</span></td></tr>
+        <tr><td><strong>Bluesky</strong></td><td>+302%（總註冊）</td><td><span class="badge badge-yellow">上升但 DAU 降 40%</span></td></tr>
+        <tr><td><strong>X (Twitter)</strong></td><td>-4.9%（MAU）/ -15.2%（DAU）</td><td><span class="badge badge-red">持續下滑</span></td></tr>
+        <tr><td><strong>Mastodon</strong></td><td>持平至微降</td><td><span class="badge badge-yellow">停滯</span></td></tr>
+    </table></div>
+
+    <h3>7.3 廣告收入對比</h3>
+    <div class="table-wrap"><table>
+        <tr><th>平台</th><th>2024 年收入</th><th>2025 年收入（估計）</th><th>2026 年預測</th></tr>
+        <tr><td><strong>Threads</strong></td><td>起步階段</td><td>~80 億美元</td><td>20-113 億美元</td></tr>
+        <tr><td><strong>X (Twitter)</strong></td><td>~25 億（-43% vs 2022）</td><td>持續下降</td><td>~27 億（2027 預測）</td></tr>
+        <tr><td><strong>Bluesky</strong></td><td>幾乎無收入</td><td>幾乎無收入</td><td>探索訂閱模式</td></tr>
+    </table></div>
+
+    <h3>7.4 各平台優劣勢</h3>
+
+    <h4>Threads</h4>
+    <div class="table-wrap"><table>
+        <tr><th style="width:80px">面向</th><th>評估</th></tr>
+        <tr><td><span class="trend-up">優勢</span></td><td>Instagram 20 億用戶基礎；Meta 基礎設施與 AI 推薦；最高互動率（6.25%）；快速功能迭代；Fediverse 互通</td></tr>
+        <tr><td><span class="trend-down">劣勢</span></td><td>綁定 Instagram 帳號；使用時長遠低於 X（5-10 分 vs 34 分）；歐盟法規限制；桌面與搜尋體驗弱</td></tr>
+    </table></div>
+
+    <h4>X (Twitter)</h4>
+    <div class="table-wrap"><table>
+        <tr><th style="width:80px">面向</th><th>評估</th></tr>
+        <tr><td><span class="trend-up">優勢</span></td><td>即時新聞主導地位；每日 34 分鐘使用時長；強大網頁版；突發新聞與直播優勢</td></tr>
+        <tr><td><span class="trend-down">劣勢</span></td><td>收入暴跌（44 億&rarr;25 億）；僅 4% 行銷人員認可品牌安全；用戶持續流失；440 億債務壓力</td></tr>
+    </table></div>
+
+    <h4>Bluesky</h4>
+    <div class="table-wrap"><table>
+        <tr><th style="width:80px">面向</th><th>評估</th></tr>
+        <tr><td><span class="trend-up">優勢</span></td><td>去中心化（AT Protocol）；可自訂演算法；吸引記者與開發者；不以用戶數據訓練 AI</td></tr>
+        <tr><td><span class="trend-down">劣勢</span></td><td>規模極小（3.5M DAU）；DAU 年降 40%；僅 3,600 萬美元融資；商業模式未驗證</td></tr>
+    </table></div>
+
+    <h4>Mastodon</h4>
+    <div class="table-wrap"><table>
+        <tr><th style="width:80px">面向</th><th>評估</th></tr>
+        <tr><td><span class="trend-up">優勢</span></td><td>完全去中心化開源；無廣告無演算法；強隱私保護；可自建伺服器</td></tr>
+        <tr><td><span class="trend-down">劣勢</span></td><td>最高入門門檻；活躍用戶自 260 萬峰值持續下滑；碎片化體驗；吸引力局限技術用戶</td></tr>
+    </table></div>
+
+    <h3>7.5 每日使用時長對比</h3>
+    <div class="table-wrap"><table>
+        <tr><th>平台</th><th>平均每日使用時長</th></tr>
+        <tr><td>X (Twitter)</td><td><strong>34 分鐘</strong></td></tr>
+        <tr><td>Instagram</td><td><strong>33 分鐘</strong></td></tr>
+        <tr><td>Threads</td><td><strong>5-10 分鐘</strong></td></tr>
+        <tr><td>Bluesky</td><td><strong>~10 分鐘</strong></td></tr>
+        <tr><td>Mastodon</td><td><strong>~5 分鐘</strong>（估計）</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 8 -->
+    <h2 id="s8">8. 趨勢與展望</h2>
+    <h3>8.1 成長驅動因素</h3>
+    <ol>
+        <li><strong>Instagram 生態系槓桿</strong>：20 億用戶基礎持續轉換，96% 跨平台重疊</li>
+        <li><strong>X 平台用戶與廣告主流失</strong>：品牌安全疑慮與內容審核爭議驅動遷移</li>
+        <li><strong>功能快速迭代</strong>：趨勢話題、自訂動態、群組聊天等持續完善</li>
+        <li><strong>廣告變現全面啟動</strong>：2026/01 全球開放，Meta Ads Manager 無縫整合</li>
+        <li><strong>新興市場成長</strong>：印度、巴西等市場自然成長持續</li>
+        <li><strong>AI 驅動推薦</strong>：Meta AI 提升內容推薦，推動停留時間增長 10%+</li>
+    </ol>
+
+    <h3>8.2 挑戰與風險</h3>
+    <ol>
+        <li><strong>使用時長偏低</strong>：5-10 分鐘遠低於 X 的 34 分鐘，內容黏著度不足</li>
+        <li><strong>歐盟法規壓力</strong>：2 億歐元 DMA 罰款（2025/04）；Fediverse 功能歐盟不可用</li>
+        <li><strong>Instagram 帳號綁定依賴</strong>：73% 成長來自 Instagram，獨立吸引力有限</li>
+        <li><strong>廣告負載增加風險</strong>：預期循 Facebook 模式降低自然觸及率</li>
+        <li><strong>DAU/MAU 比率偏低</strong>：29-35% 顯示大量用戶非每日活躍</li>
+    </ol>
+
+    <h3>8.3 未來預測</h3>
+    <div class="table-wrap"><table>
+        <tr><th>指標</th><th>2026 年底預測</th><th>2027 年預測</th></tr>
+        <tr><td>MAU</td><td>5-5.5 億</td><td>6-7 億</td></tr>
+        <tr><td>DAU</td><td>1.8-2 億</td><td>2.5-3 億</td></tr>
+        <tr><td>廣告收入</td><td>20-113 億美元</td><td>90-180 億美元</td></tr>
+    </table></div>
+    <ul>
+        <li><strong>短期（2026）</strong>：行動端 DAU 穩固超越 X；廣告收入快速成長</li>
+        <li><strong>中期（2027-2028）</strong>：若 MAU 破 6 億，有望挑戰 X 整體用戶規模</li>
+        <li><strong>長期展望</strong>：最有可能成為主流文字社群平台領導者</li>
+    </ul>
+
+    <h3>8.4 值得關注的發展方向</h3>
+    <ol>
+        <li><strong>Fediverse 整合深化</strong>：ActivityPub 互通是獨特競爭優勢（但 800+ 伺服器加入 Fedipact 封鎖）</li>
+        <li><strong>AI 功能整合</strong>：Meta AI 提升內容推薦與創作輔助</li>
+        <li><strong>創作者變現工具</strong>：2026 年開發中，將是提升內容品質的關鍵</li>
+        <li><strong>API 生態系擴展</strong>：已支援 Hootsuite、Buffer 等主流工具</li>
+    </ol>
+
+    <hr>
+
+    <!-- Section 9 -->
+    <h2 id="s9">9. 最受歡迎帳號（截至 2025 年）</h2>
+    <div class="table-wrap"><table>
+        <tr><th>排名</th><th>帳號</th><th>追蹤者數（百萬）</th></tr>
+        <tr><td>1</td><td>Neymar Jr.</td><td>22.7</td></tr>
+        <tr><td>2</td><td>Selena Gomez</td><td>20.1</td></tr>
+        <tr><td>3</td><td>Kylie Jenner</td><td>17.9</td></tr>
+        <tr><td>4</td><td>Kim Kardashian</td><td>16.4</td></tr>
+        <tr><td>5</td><td>Jennifer Lopez</td><td>15.1</td></tr>
+    </table></div>
+
+    <hr>
+
+    <!-- Section 10 -->
+    <h2 id="s10">10. 資料來源</h2>
+    <div class="sources">
+        <h4>官方來源</h4>
+        <ol>
+            <li><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Fourth-Quarter-and-Full-Year-2025-Results/default.aspx">Meta Q4 FY2025 財報</a></li>
+            <li><a href="https://techcrunch.com/2025/08/12/threads-now-has-more-than-400-million-monthly-active-users/">TechCrunch - Threads 達 4 億 MAU（2025/08）</a></li>
+            <li><a href="https://www.engadget.com/social-media/threads-reaches-150-million-daily-users-and-is-ramping-up-ads-214259945.html">Engadget - Threads 達 1.5 億 DAU（2025/10）</a></li>
+            <li><a href="https://techcrunch.com/2025/04/30/threads-tops-350m-monthly-users-after-adding-30m-in-the-quarter/">TechCrunch - Threads 達 3.5 億 MAU（Q1 2025）</a></li>
+            <li><a href="https://about.fb.com/news/2025/04/new-features-threads-web-experience/">Meta - Threads 網頁版新功能</a></li>
+            <li><a href="https://developers.facebook.com/blog/post/2024/06/18/the-threads-api-is-finally-here/">Meta for Developers - Threads API</a></li>
+        </ol>
+
+        <h4>第三方數據與分析</h4>
+        <ol start="7">
+            <li><a href="https://backlinko.com/threads-users">Backlinko - Threads Users 2026</a></li>
+            <li><a href="https://www.demandsage.com/threads-statistics/">DemandSage - Threads Statistics 2026</a></li>
+            <li><a href="https://xtendedview.com/threads-statistics/">XtendedView - Threads Statistics 2026</a></li>
+            <li><a href="https://www.businessofapps.com/data/threads-statistics/">Business of Apps - Threads Statistics 2026</a></li>
+            <li><a href="https://thesocialshepherd.com/blog/threads-statistics">The Social Shepherd - Threads Statistics 2026</a></li>
+            <li><a href="https://buffer.com/resources/threads-stats/">Buffer - Threads Stats 2025</a></li>
+            <li><a href="https://www.skillademia.com/statistics/threads-statistics/">Skillademia - Threads Statistics 2025</a></li>
+            <li><a href="https://www.statista.com/statistics/1451377/threads-global-quarterly-mau/">Statista - Threads MAU Worldwide</a></li>
+            <li><a href="https://sensortower.com/blog/threads-historic-launch-decline-download-insights">Sensor Tower - Threads Launch Insights</a></li>
+        </ol>
+
+        <h4>競品與里程碑</h4>
+        <ol start="16">
+            <li><a href="https://backlinko.com/twitter-users">Backlinko - X (Twitter) Statistics 2026</a></li>
+            <li><a href="https://backlinko.com/bluesky-statistics">Backlinko - Bluesky Statistics 2026</a></li>
+            <li><a href="https://sproutsocial.com/insights/bluesky-statistics/">Sprout Social - Bluesky Statistics 2026</a></li>
+            <li><a href="https://techcrunch.com/2026/01/18/threads-edges-out-x-in-daily-mobile-users-new-data-shows/">TechCrunch - Threads 超越 X（2026/01）</a></li>
+            <li><a href="https://www.forbes.com/sites/conormurray/2025/11/03/threads-passes-x-in-key-monthly-metric-for-first-time-in-zuckerberg-vs-musk-battle/">Forbes - Threads 首次超越 X（2025/11）</a></li>
+        </ol>
+
+        <h4>法規與政策</h4>
+        <ol start="21">
+            <li><a href="https://www.cnn.com/2023/12/14/tech/metas-threads-eu-launch/index.html">CNN - Threads 登陸歐盟（2023/12）</a></li>
+            <li><a href="https://digital-markets-act.ec.europa.eu/meta-commits-give-eu-users-choice-personalised-ads-under-dma-2025-12-08_en">歐盟委員會 - Meta DMA 合規承諾</a></li>
+            <li><a href="https://www.taylorwessing.com/en/insights-and-events/insights/2025/04/meta-fined-200-million-euro-by-eu-under-digital-markets-act">Taylor Wessing - Meta 2 億歐元 DMA 罰款</a></li>
+            <li><a href="https://fortune.com/2026/01/27/x-uk-twitter-financial-filings-revenue-decline-58-percent/">Fortune - X 英國收入暴跌 58%</a></li>
+        </ol>
+
+        <h4>功能與策略</h4>
+        <ol start="25">
+            <li><a href="https://www.heyorca.com/blog/threads-social-news">HeyOrca - 2026 Threads 更新</a></li>
+            <li><a href="https://socialbee.com/blog/threads-news/">SocialBee - 2025 Threads 更新</a></li>
+            <li><a href="https://embedsocial.com/blog/instagram-threads-app/">EmbedSocial - Threads Updates 2025</a></li>
+            <li><a href="https://ppc.land/meta-finally-brings-threads-ads-to-every-user-after-yearlong-testing-phase/">PPC Land - Threads 全球廣告開放</a></li>
+            <li><a href="https://nuvoodoo.com/2025/02/03/new-data-have-bluesky-or-threads-dethroned-x-twitter/">NuVoodoo - Bluesky 或 Threads 是否取代 X</a></li>
+            <li><a href="https://buffer.com/resources/x-threads-bluesky-data/">Buffer - 170 萬則貼文分析</a></li>
+        </ol>
+    </div>
+
+    <div class="disclaimer">
+        <strong>免責聲明：</strong>本報告中的數據來自多個第三方分析機構（SimilarWeb、Sensor Tower、data.ai、Statista 等）、媒體報導及 Meta 官方財報。由於各來源使用不同衡量方法，數字之間可能存在差異。X 已不再公開官方用戶數據，相關數字均為第三方估計。收入預測來自不同分析師，範圍差異較大。滲透率為基於可取得用戶數與各國網路人口之估算值。本報告僅供參考，不構成任何投資建議。
+    </div>
+
+    <p style="text-align:center; color:var(--text-secondary); margin-top:48px; font-size:0.85em;">
+        &copy; 2026 Meta Threads 全球使用普及率調查研究 ｜ 最後更新：2026-03-11
+    </p>
+</div>
+
+</body>
+</html>
